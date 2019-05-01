@@ -4,7 +4,7 @@
   "description": "A simple OAuth server for clio manage",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon --ignore 'license.json' ./server/expressServer.js"
+    "server": "nodemon --ignore 'license.json' ./src/server/expressServer.js"
   },
   "repository": {
     "type": "git",
