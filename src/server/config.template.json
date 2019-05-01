@@ -1,5 +1,5 @@
 {
-  "expressPort": "<proxyServer list port>",
+  "proxyPort": "<proxyServer list port>",
   "webpackPort": "<not used unless you need to point to a front end web server>",
   "id": "<app id>",
   "secrect": "<app secret>",
