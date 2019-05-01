@@ -15,7 +15,6 @@ const ApiServer = {
             console.error("No Axios instance, need to initialize ApiServer !")
         }
         let result = await ApiServer.instance.get(url);
-        console.log("result:", result);
         return result;
     }
 };
