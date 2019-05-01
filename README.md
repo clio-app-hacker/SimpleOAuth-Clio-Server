@@ -32,3 +32,15 @@ If successful you Browser should have been refirected to http://localhost:3001/d
 
 After that you can use `http://localhost:3001/api/v4/matters?fields=id,description,client{name,type}` to retrieve matters form the authorized account.
 
+Try:
+ * `http://localhost:3001/api/v4/contacts`
+ * `http://localhost:3001/api/v4/activities`
+ * `http://localhost:3001/api/v4/relationships`
+ * `http://localhost:3001/api/v4/bills`
+
+ You can also name specific fields (see https://app.clio.com/api/v4/documentation)
+
+ * `http://localhost:3001/api/v4/calendars?fields=owner,type`
+ * `http://localhost:3001/api/v4/communications?fields=type,subject,matter,user,senders{name,type}`
+ 
+

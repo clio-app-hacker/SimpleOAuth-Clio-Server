@@ -1,0 +1,9 @@
+{
+  "expressPort": "<proxyServer list port>",
+  "webpackPort": "<not used unless you need to point to a front end web server>",
+  "id": "<app id>",
+  "secrect": "<app secret>",
+  "tokenHost": "https://app.clio.com",
+  "apiHost": "https://app.clio.com",
+  "redirectUri": "http://localhost:<expressPort>/oauth/response"
+}
