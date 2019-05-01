@@ -1,0 +1,9 @@
+{
+  "expressPort": 3001,
+  "webpackPort": 3000,
+  "id": "Rnp1L7DxqYPyTka5AR9h8Q7QLL2rGvqxwaEo6R6S",
+  "secrect": "4TG03EH2VX5o0Yr631WjREsTkAEuonjlQy0kY4t7",
+  "tokenHost": "https://app.clio.com",
+  "apiHost": "https://app.clio.com",
+  "redirectUri": "http://localhost:3001/oauth/response"
+}
