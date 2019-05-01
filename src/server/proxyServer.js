@@ -89,7 +89,7 @@ app.get('/oauth/response', async (req, res) => {
         ApiServer.initialize(result.access_token);
 
         // redirect to the application done page
-        res.redirect(`http://localhost:${config.expressPort}/done`);
+        res.redirect(`http://localhost:${config.proxyPort}/done`);
 
     } catch (error) {
         console.log('Access Token Error', error);
@@ -118,6 +118,6 @@ app.get('/*', (req, res) => {
     res.send(`Unsupported request: ${req._parsedOriginalUrl.path}`)
 });
 
-app.listen(config.expressPort, () => {
-    console.log(`Listening on localhost:${config.expressPort}`)
+app.listen(config.proxyPort, () => {
+    console.log(`Listening on localhost:${config.proxyPort}`)
 });
