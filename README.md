@@ -2,15 +2,17 @@
 A simple OAuth server for clio manage
 
 ## Prerequisites/Tools
+
 nodeJS and yarn (though npm will work too)
 
 you can use either nvm or nodenv (prefered by clio) to set you nodeJS and npm versions
 
-brew install nodenv (for MacOS)
-
-nodenv -install 10.9.0 (also installs npm)
-
-brew install yarn (for MacOS)
+```
+brew install nodenv
+nodenv -install 10.9.0
+nodenv global 10.9.0
+brew install yarn
+```
 
 
 ## Setup
