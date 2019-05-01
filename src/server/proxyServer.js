@@ -36,8 +36,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
-// create the login get and post routes
+/**
+ * Done route - for testing mostly...
+ */
 app.get('/done', async (req, res) => {
     console.log('Inside GET /login callback function')
     console.log("Session ID:", req.sessionID)
@@ -45,7 +46,7 @@ app.get('/done', async (req, res) => {
 });
 
 /**
- * Simple route for all /api/v4 requests
+ * Simple route for all /api/v4 get requests
  */
 app.get('/api/v4/*', async (req, res) => {
     // console.log("Request:", req);
@@ -108,6 +109,13 @@ app.get('/oauth', (req, res) => {
 
     // redirect to 
     res.redirect(authorizationUri);
+});
+
+/**
+ * Catch all...
+ */
+app.get('/*', (req, res) => {
+    res.send(`Unsupported request: ${req._parsedOriginalUrl.path}`)
 });
 
 app.listen(config.expressPort, () => {
