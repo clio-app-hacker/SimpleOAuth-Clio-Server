@@ -1,0 +1,24 @@
+{
+  "user1": {
+    "license": {
+      "uuid": "fc6845ba-66ee-4821-a4c4-af1e219d17e0",
+      "type": "Individual",
+      "discountPercent": 0,
+      "licenseSince": 1556732263428
+    },
+    "user": {
+      "id": "user1"
+    }
+  },
+  "oauth": {
+    "license": {
+      "uuid": "def50f47-a8cb-4877-9690-1c60243c6589",
+      "type": "Individual",
+      "discountPercent": 0,
+      "licenseSince": 1556733088607
+    },
+    "user": {
+      "id": "oauth"
+    }
+  }
+}

@@ -4,6 +4,7 @@ const uuid = require('uuidv4');
 let LicenseType = {
   Individual: "Individual",
 };
+
 const createLicense = () => {
   return uuid();
 };
@@ -23,7 +24,8 @@ const storeLicense = (userId, license) => {
 const LicenseServer = {
   store: new Store({ path: "license.json" }),
   getLicense: function (userId) {
-    let license = findLicense(user);
+    console.log("User:", userId);
+    let license = findLicense(userId);
     if (!license) {
       license = {
         license: {

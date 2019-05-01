@@ -2,6 +2,7 @@ const app = require('express')();
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
 const LicenseServer = require('./licenseServer');
+const ApiServer = require('./apiServer');
 const config = require('./config.json');
 const uuid = require('uuidv4');
 const session = require('express-session');
@@ -70,11 +71,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // create the login get and post routes
-app.get('/login', (req, res) => {
+app.get('/login/:user', async (req, res) => {
     console.log('Inside GET /login callback function')
-    console.log(req.sessionID)
+    console.log("Session ID:", req.sessionID)
     LicenseServer.getLicense(req.params.user);
-    res.redirect(`http://localhost:${config.expressPort}/login`);
+    const result = await ApiServer.get("/api/v4/matters");
+    console.log("API Server result:", result)
+    let matters = JSON.stringify(result.data.data, null, 2);
+    console.log("Matters:", matters);
+    res.send(`<span>${matters}</span>`);
 })
 
 app.post('/login', (req, res, next) => {
@@ -110,8 +115,9 @@ app.get('/oauth/response', async (req, res) => {
         accessToken = oauth2.accessToken.create(result);
         console.log("accessToken:", accessToken);
 
+        ApiServer.initialize(result.access_token);
         // redirect to the application home page
-        res.redirect(`http://localhost:${config.expressPort}/login`);
+        res.redirect(`http://localhost:${config.expressPort}/login/user1`);
 
     } catch (error) {
         console.log('Access Token Error', error);
