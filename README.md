@@ -12,6 +12,7 @@ brew install nodenv
 nodenv -install 10.9.0
 nodenv global 10.9.0
 brew install yarn
+npm install -g nodemon
 ```
 
 
