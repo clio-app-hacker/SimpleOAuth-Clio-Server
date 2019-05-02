@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple OAuth server for clio manage",
   "scripts": {
-    "start": "nodemon --ignore 'license.json' ./src/server/proxyServer.js"
+    "start": "nodemon ./src/server/proxyServer.js"
   },
   "repository": {
     "type": "git",
