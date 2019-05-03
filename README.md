@@ -31,7 +31,7 @@ http://localhost:3001/oauth will do the OAuth authentication
 
 If successful your Browser should have been redirected to http://localhost:3001/done and show "Setup done" in the Browser window.
 
-After that you can use `http://localhost:3001/api/v4/matters?fields=id,description,client{name,type}` to retrieve matters form the authorized account.
+After that you can use `http://localhost:3001/api/v4/matters?fields=id,description,client{name,type}` to retrieve matters from the authorized account.
 
 Try:
  * `http://localhost:3001/api/v4/contacts`
