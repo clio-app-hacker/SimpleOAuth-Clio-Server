@@ -8,9 +8,9 @@ const session = require('express-session');
 // use express to handle incomming request
 // use simple-oauth2 for oauth
 // use axios for passing api requests to app.clio.com
-// store tokens on the server so they do not leak on client apps
-// handle license key generation and storage
-// in memory DB for fast access to already retrieved data
+// TODO: store tokens on the server so they do not leak on client apps
+//       handle license key generation and storage
+//       in memory DB for fast access to already retrieved data
 */
 const credentials = {
     client: {
