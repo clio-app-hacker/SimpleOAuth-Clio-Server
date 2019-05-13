@@ -40,8 +40,8 @@ app.use(session({
  * Done route - for testing mostly...
  */
 app.get('/done', async (req, res) => {
-    console.log('Inside GET /login callback function')
-    console.log("Session ID:", req.sessionID)
+    // console.log('Inside GET /done callback function')
+    // console.log("Session ID:", req.sessionID)
     res.send(`<pre>Setup done</pre>`);
 });
 
@@ -107,17 +107,19 @@ app.get('/oauth', (req, res) => {
         redirect_uri: config.redirectUri,
     });
 
-    // redirect to 
+    // redirect to app.clio.com for authentication
+    // this will trigger OAuth 2 flow
     res.redirect(authorizationUri);
 });
 
 /**
- * Catch all...
+ * Catch all, return unsupported request
  */
 app.get('/*', (req, res) => {
     res.send(`Unsupported request: ${req._parsedOriginalUrl.path}`)
 });
 
+// start listening on configured port
 app.listen(config.proxyPort, () => {
     console.log(`Listening on localhost:${config.proxyPort}`)
 });
