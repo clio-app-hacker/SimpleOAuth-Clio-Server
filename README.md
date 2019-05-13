@@ -41,7 +41,7 @@ Try:
 
  You can also name specific fields (see https://app.clio.com/api/v4/documentation)
 
- * `http://localhost:3001/api/v4/calendars?fields=owner,type`
+ * `http://localhost:3001/api/v4/calendars?fields=type,name,creator{name,account_owner,subscription_type}`
  * `http://localhost:3001/api/v4/communications?fields=type,subject,matter,user,senders{name,type}`
  
 
