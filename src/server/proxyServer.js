@@ -2,16 +2,13 @@ const app = require('express')();
 const ApiServer = require('./apiServer');
 const config = require('./config.json');
 const uuid = require('uuidv4');
-const session = require('express-session');
+//const session = require('express-session');
 
-/*
-// use express to handle incomming request
-// use simple-oauth2 for oauth
-// use axios for passing api requests to app.clio.com
-// TODO: store tokens on the server so they do not leak on client apps
-//       handle license key generation and storage
-//       in memory DB for fast access to already retrieved data
-*/
+/**
+ * use express to handle incomming request
+ * use simple-oauth2 for oauth
+ * use axios for passing api requests to app.clio.com
+ */
 const credentials = {
     client: {
         id: config.id,
@@ -26,22 +23,20 @@ const credentials = {
 const oauth2 = require('simple-oauth2').create(credentials);
 
 // add & configure session middleware
-app.use(session({
-    genid: (req) => {
-        console.log('Inside the session middleware: ', req.sessionID)
-        return uuid() // use UUIDs for session IDs
-    },
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true
-}));
+// app.use(session({
+//     genid: (req) => {
+//         console.log('Inside the session middleware: ', req.sessionID)
+//         return uuid() // use UUIDs for session IDs
+//     },
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true
+// }));
 
 /**
  * Done route - for testing mostly...
  */
 app.get('/done', async (req, res) => {
-    // console.log('Inside GET /done callback function')
-    // console.log("Session ID:", req.sessionID)
     res.send(`<pre>Setup done</pre>`);
 });
 
