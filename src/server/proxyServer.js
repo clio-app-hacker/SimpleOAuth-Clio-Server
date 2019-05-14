@@ -2,7 +2,7 @@ const app = require('express')();
 const ApiServer = require('./apiServer');
 const config = require('./config.json');
 const uuid = require('uuidv4');
-//const session = require('express-session');
+const session = require('express-session');
 
 /**
  * use express to handle incomming request
@@ -23,15 +23,15 @@ const credentials = {
 const oauth2 = require('simple-oauth2').create(credentials);
 
 // add & configure session middleware
-// app.use(session({
-//     genid: (req) => {
-//         console.log('Inside the session middleware: ', req.sessionID)
-//         return uuid() // use UUIDs for session IDs
-//     },
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: true
-// }));
+app.use(session({
+    genid: (req) => {
+        console.log('Inside the session middleware: ', req.sessionID)
+        return uuid() // use UUIDs for session IDs
+    },
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true
+}));
 
 /**
  * Done route - for testing mostly...
