@@ -46,6 +46,7 @@ app.get('/done', async (req, res) => {
 app.get('/api/v4/*', async (req, res) => {
     // console.log("Request:", req);
 
+    // _parsedOriginalUrl.path -> comes from express-session
     const result = await ApiServer.get(req._parsedOriginalUrl.path);
     // console.log("API Server result:", result)
     let json = JSON.stringify(result.data.data, null, 2);
