@@ -1,20 +1,13 @@
 const axios = require('axios');
+const config = require('./config.json');
 
 const ApiServer = {
-    instance: null,
-    initialize: (token) => {
-        console.log(`Initialize axios with bearer token : ${token}`);
-        ApiServer.instance = axios.create({
-            baseURL: 'https://app.clio.com/',
+    get: async (url, token) => {
+        console.log(`${url} with token = ${token}`)
+        let result = await axios.get(url, {
+            baseURL: config.apiHost,
             headers: { 'Authorization': `Bearer ${token}` }
         });
-    },
-    get: async (url) => {
-        console.log("ApiServer.get: ", url);
-        if (!ApiServer.instance) {
-            console.error("No Axios instance, need to initialize ApiServer !")
-        }
-        let result = await ApiServer.instance.get(url);
         return result;
     }
 };

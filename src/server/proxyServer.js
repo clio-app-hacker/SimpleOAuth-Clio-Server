@@ -3,6 +3,7 @@ const ApiServer = require('./apiServer');
 const config = require('./config.json');
 const uuid = require('uuidv4');
 const session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 /**
  * use express to handle incomming request
@@ -25,11 +26,11 @@ const oauth2 = require('simple-oauth2').create(credentials);
 // add & configure session middleware
 app.use(session({
     genid: (req) => {
-        console.log('Inside the session middleware: ', req.sessionID)
         return uuid() // use UUIDs for session IDs
     },
-    secret: 'keyboard cat',
+    secret: 'testtesttest',
     resave: false,
+    store: new FileStore,
     saveUninitialized: true
 }));
 
@@ -44,14 +45,22 @@ app.get('/done', async (req, res) => {
  * Simple route for all /api/v4 get requests
  */
 app.get('/api/v4/*', async (req, res) => {
-    // console.log("Request:", req);
 
-    // _parsedOriginalUrl.path -> comes from express-session
-    const result = await ApiServer.get(req._parsedOriginalUrl.path);
-    // console.log("API Server result:", result)
-    let json = JSON.stringify(result.data.data, null, 2);
-    // console.log("Result:", json);
-    res.send(`<pre>${json}</pre>`);
+    // check if we already stored a token in the session for this user
+    if (req.session.clio_token) {
+        console.log("/api/v4/*: ", req.sessionID);
+        try {
+            // get the data using the token from the server side stored session 
+            const result = await ApiServer.get(req._parsedOriginalUrl.path, req.session.clio_token.access_token);
+            res.send(result.data);
+        } catch (e) {
+            console.log("Error:", e);
+            res.send("Error");
+        }
+    } else {
+        // no token hence NO FREAKING ACCESS !!!
+        res.send("Not Autorized");
+    }
 });
 
 /**
@@ -61,7 +70,8 @@ app.get('/api/v4/*', async (req, res) => {
  * Note: This code is specific to a user and their env.
  */
 app.get('/oauth/response', async (req, res) => {
-    console.log("oauth/response: ", req.query.code);
+    console.log("/oauth/response: ", req.query.code);
+    console.log("/oauth/response SessionID: ", req.sessionID);
 
     // use the returned code to get the token
     //  - pass in the required attributes
@@ -78,14 +88,17 @@ app.get('/oauth/response', async (req, res) => {
         const result = await oauth2.authorizationCode.getToken(tokenConfig)
         console.log("result:", result);
 
-        // WARNING: This will setup the API server with a single token, hence this only works for 
-        //    a single user. If you have multiple users you need to store each token per user on 
-        //    the server and retrieve the token for the user when the user makes a request.
-        //    Otherwise every user gets to access the first users Data - NOT GOOD !!!!
-        ApiServer.initialize(result.access_token);
+        // store the access token with the session
+        // THIS IS REALLY IMPORTANT !!! 
+        // This makes sure we do not access data of another user !
+        req.session.clio_token = result;
+
+        // since we changed the session (added token), we need to save it
+        req.session.save();
+        console.log("/oauth/response Session: ", req.session);
 
         // redirect to the application done page
-        res.redirect(`http://localhost:${config.proxyPort}/done`);
+        res.redirect(`http://localhost:3005/done`);
 
     } catch (error) {
         console.log('Access Token Error', error);
@@ -96,12 +109,14 @@ app.get('/oauth/response', async (req, res) => {
  * OAuth entry point
  */
 app.get('/oauth', (req, res) => {
-    console.log("oauth");
+    console.log("oauth: ");
 
     // create a authorizationUri using simple-oauth2 library
     const authorizationUri = oauth2.authorizationCode.authorizeURL({
         redirect_uri: config.redirectUri,
     });
+
+    console.log("authorizationUri created")
 
     // redirect to app.clio.com for authentication
     // this will trigger OAuth 2 flow

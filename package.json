@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A simple OAuth server for clio manage",
   "scripts": {
-    "start": "nodemon ./src/server/proxyServer.js"
+    "start": "node ./src/server/proxyServer.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
     "axios": "^0.18.0",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
+    "session-file-store": "^1.2.0",
     "simple-oauth2": "^2.2.1",
     "uuidv4": "^4.0.0"
   }
