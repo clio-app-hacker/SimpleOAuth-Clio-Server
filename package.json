@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/clio-app-hacker/SimpleOAuth-Clio-Server#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
     "session-file-store": "^1.2.0",
